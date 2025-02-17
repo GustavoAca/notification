@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: notification
+    version: @project.version@
+  cloud:
+    discovery:
+      enabled: true
+      eureka:
+        instance:
+          hostname: localhost
+    client:
+      hostname: localhost
+    loadbalancer:
+      enabled: true
+      ribbon:
+        enabled: false
+  jackson:
+    time-zone: America/Sao_Paulo
+  jpa:
+    enabled: true
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: America/Sao_Paulo
+  security:
+    enabled: false
+  flyway:
+    user: gl_notification
+    password: gl_notification
+    locations: classpath:db/migration
+    table: FLYWAY_SCHEMA_HISTORY
+    schemas: gl_notification
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 587
+    username: 7341993018b0bd
+    password: 468af5ce7462c2
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8193
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+jwt:
+  public:
+    key: |
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhocpCKsOQEoButV4V76t0S2Vdd6iMUiud/q5Qvt/MQb9JoXWnx/rlYhVsyr20jrIEgfTGU51oJaGZRovAVNuQLF0VlK/bUu9a4Ce5PRAEeWPdTFrFEdxTIBdG0gsbZlb/SotY6jW+zI+wJI3Yl5Lm9+tHx
+      LeCqCtLrXWCHngGnU9eLsEa1OR94aR9gcIuUJhu/QjSDbARjoNYv7FSnBFeXYqahcT3WGcos7M2RZh6SZnVlN7aZ+Ve1CVv5BCVJf7lwEpGEJjGtipx6XJoERO7jPhwie+dYmcpP4yTCvqGlTGPWyYPyi6QBZPznkcCKcqs2MPtXnNUm0PuLkyaMycvwIDAQAB
+      -----END PUBLIC KEY-----
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/glaiss?TimeZone=America/Sao_Paulo
+    username: gl_notification
+    password: gl_notification
+    driver-class-name: org.postgresql.Driver
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${DB_URL}
+    username: ${USER_DB}
+    password: ${PASSWORD_DB}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    user: ${USER_DB}
+    password: ${PASSWORD_DB}
+  cloud:
+    discovery:
+      eureka:
+        instance:
+          hostname: prod-hostname
+    client:
+      hostname: prod-hostname
+eureka:
+  client:
+    service-url:
+      defaultZone: ${URL_DISCOVERY}
+server:
+  port: ${PORT}
