@@ -2,6 +2,7 @@ package com.glaiss.notification.domain.service;
 
 import com.glaiss.core.domain.service.BaseServiceImpl;
 import com.glaiss.notification.controller.dto.EmailDetails;
+import com.glaiss.notification.controller.dto.EmailValidador;
 import com.glaiss.notification.domain.model.Email;
 import com.glaiss.notification.domain.repository.EmailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
@@ -47,12 +49,6 @@ public class EmailServiceImpl extends BaseServiceImpl<Email, UUID, EmailReposito
     private Email criarEmail(String para) {
         String codigoAutenticacao = gerarCodigoAutenticacao();
         return new Email(para, ASSUNTO, String.format(CORPO_DO_EMAIL, codigoAutenticacao), codigoAutenticacao, LocalDateTime.now().plusMinutes(15L));
-//        return Email.builder().para(para)
-//                .codigoDeAutenticacao(codigoAutenticacao)
-//                .dataExpiracao(LocalDateTime.now().plusMinutes(15L))
-//                .assunto(ASSUNTO)
-//                .corpo(String.format(CORPO_DO_EMAIL, codigoAutenticacao))
-//                .build();
     }
 
     private String gerarCodigoAutenticacao() {
@@ -74,5 +70,19 @@ public class EmailServiceImpl extends BaseServiceImpl<Email, UUID, EmailReposito
         var emailEncontrado = repo.findByPara(email.getPara());
         emailEncontrado.ifPresent(value -> deletar(value.getId()));
         return super.salvar(email);
+    }
+
+    @Override
+    public Boolean validarCodigoAutenticacao(EmailValidador emailValidador) {
+        Optional<Email> emailEncontrado = repo.findByPara(emailValidador.usuario());
+        if (emailEncontrado.isPresent()) {
+            if (LocalDateTime.now().isBefore(emailEncontrado.get().getDataExpiracao())) {
+                if (emailValidador.codigoValidacao().equals(emailEncontrado.get().getCodigoDeAutenticacao())) {
+                    deletar(emailEncontrado.get().getId());
+                    return Boolean.TRUE;
+                }
+            }
+        }
+        return Boolean.FALSE;
     }
 }

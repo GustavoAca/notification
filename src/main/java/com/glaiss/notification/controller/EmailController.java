@@ -1,6 +1,7 @@
 package com.glaiss.notification.controller;
 
 import com.glaiss.notification.controller.dto.EmailDetails;
+import com.glaiss.notification.controller.dto.EmailValidador;
 import com.glaiss.notification.domain.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,5 +19,10 @@ public class EmailController {
     @PostMapping("/enviar")
     public void sendMail(@RequestBody EmailDetails details) throws Exception {
         emailService.sendMail(details);
+    }
+
+    @PostMapping("/validar-codigo")
+    public Boolean validarCoditoAutenticacao(@RequestBody EmailValidador emailValidador) {
+        return emailService.validarCodigoAutenticacao(emailValidador);
     }
 }
