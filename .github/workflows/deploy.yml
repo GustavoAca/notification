@@ -63,8 +63,8 @@ jobs:
 
       - name: Deploy image
         run: |
-          docker tag lista:${{ env.PROJECT_VERSION }} gacacio/lista:${{ env.PROJECT_VERSION }}
-          docker push gacacio/lista:${{ env.PROJECT_VERSION }}
+          docker tag lista:${{ env.PROJECT_VERSION }} gacacio/notification:${{ env.PROJECT_VERSION }}
+          docker push gacacio/notification:${{ env.PROJECT_VERSION }}
 
   incrementar-versao:
     runs-on: ubuntu-latest
