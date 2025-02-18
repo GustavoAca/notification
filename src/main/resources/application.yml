@@ -43,7 +43,7 @@ spring:
             enable: true
 
 server:
-  port: 8193
+  port: 8194
 
 eureka:
   client:
@@ -97,6 +97,17 @@ spring:
           hostname: prod-hostname
     client:
       hostname: prod-hostname
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 eureka:
   client:
     service-url:
