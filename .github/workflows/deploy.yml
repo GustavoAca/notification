@@ -59,11 +59,11 @@ jobs:
 
       - name: Build imagem docker
         run: |
-          docker build . --file Dockerfile --tag lista:${{ env.PROJECT_VERSION }}
+          docker build . --file Dockerfile --tag notification:${{ env.PROJECT_VERSION }}
 
       - name: Deploy image
         run: |
-          docker tag lista:${{ env.PROJECT_VERSION }} gacacio/notification:${{ env.PROJECT_VERSION }}
+          docker tag notification:${{ env.PROJECT_VERSION }} gacacio/notification:${{ env.PROJECT_VERSION }}
           docker push gacacio/notification:${{ env.PROJECT_VERSION }}
 
   incrementar-versao:
