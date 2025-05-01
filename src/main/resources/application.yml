@@ -41,7 +41,7 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  chave-de-acesso: teste-1234
 server:
   port: 8194
 

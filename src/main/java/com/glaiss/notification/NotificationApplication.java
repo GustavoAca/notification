@@ -11,7 +11,6 @@ import java.util.TimeZone;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.glaiss.core", "com.glaiss.notification"})
 @EntityScan(basePackages = "com.glaiss.notification.domain.model")
-
 public class NotificationApplication {
 
 	public static void main(String[] args) {
