@@ -105,6 +105,8 @@ spring:
           auth: true
           starttls:
             enable: true
+
+  chave-de-acesso: ${CHAVES_DE_ACESSO}
 eureka:
   client:
     service-url:
