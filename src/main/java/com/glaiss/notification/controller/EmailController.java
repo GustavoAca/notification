@@ -16,13 +16,13 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/enviar")
+    @PostMapping
     public void sendMail(@RequestBody EmailDetails details) throws Exception {
         emailService.sendMail(details);
     }
 
     @PostMapping("/validar-codigo")
-    public Boolean validarCoditoAutenticacao(@RequestBody EmailValidador emailValidador) {
+    public Boolean validarCodigoAutenticacao(@RequestBody EmailValidador emailValidador) {
         return emailService.validarCodigoAutenticacao(emailValidador);
     }
 }
