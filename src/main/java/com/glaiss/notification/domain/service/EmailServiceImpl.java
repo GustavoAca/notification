@@ -5,6 +5,7 @@ import com.glaiss.notification.controller.dto.EmailDetails;
 import com.glaiss.notification.controller.dto.EmailValidador;
 import com.glaiss.notification.domain.model.Email;
 import com.glaiss.notification.domain.repository.EmailRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -17,6 +18,7 @@ import java.util.Random;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class EmailServiceImpl extends BaseServiceImpl<Email, UUID, EmailRepository> implements EmailService {
 
     private final static String ASSUNTO = "Redefinição de senha";
@@ -40,8 +42,10 @@ public class EmailServiceImpl extends BaseServiceImpl<Email, UUID, EmailReposito
         SimpleMailMessage simpleMailMessage = criarSimpleMailMessage(email);
         try {
             javaMailSender.send(simpleMailMessage);
+            log.debug("sucesso no envio");
         } catch (Exception e) {
-            throw new Exception(e);
+            log.error("Erro ao processar requisição", e);
+            throw e;
         }
         salvar(email);
     }
