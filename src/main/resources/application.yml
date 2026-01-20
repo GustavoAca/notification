@@ -51,9 +51,14 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/discovery/eureka
+      defaultZone: ${URL_DISCOVERY:http://localhost:8761/discovery/eureka}
     fetch-registry: true
     register-with-eureka: true
+  instance:
+    hostname: notification
+    prefer-ip-address: false
+    non-secure-port: ${PORT}
+    instance-id: ${spring.application.name}:${server.port}
 
 management:
   endpoints:
@@ -112,9 +117,9 @@ spring:
     discovery:
       eureka:
         instance:
-          hostname: prod-hostname
+          hostname: ${EUREKA_INSTANCE_HOSTNAME}
     client:
-      hostname: prod-hostname
+      hostname: ${EUREKA_INSTANCE_HOSTNAME}
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
@@ -132,6 +137,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${URL_DISCOVERY}
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME}
+    non-secure-port: ${EUREKA_INSTANCE_NON_SECURE_PORT}
+    prefer-ip-address: false
 server:
   port: ${PORT}
 logstash:
