@@ -4,14 +4,14 @@ spring:
     version: @project.version@
   cloud:
     discovery:
-      enabled: true
+      enabled: ${DISCOVERY_ENABLED:false}
       eureka:
         instance:
           hostname: localhost
     client:
       hostname: localhost
     loadbalancer:
-      enabled: true
+      enabled: ${LOADBALANCER_ENABLED:false}
       ribbon:
         enabled: false
   jackson:
@@ -42,6 +42,8 @@ spring:
           starttls:
             enable: true
   chave-de-acesso: teste-1234,gateway-api-key
+  redis:
+    enabled: ${REDIS_ENABLED:false}
 
 server:
   port: 8194
@@ -50,6 +52,7 @@ server:
 
 eureka:
   client:
+    enabled: ${EUREKA_CLIENT_ENABLED:false}
     service-url:
       defaultZone: ${URL_DISCOVERY:http://localhost:8761/discovery/eureka}
     fetch-registry: true
