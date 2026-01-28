@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-reusable-workflow:
-    uses: GustavoAca/infra-aws-free-tier/.github/workflows/reusable/service-workflow.yml@main
+    uses: GustavoAca/infra-aws-free-tier/.github/workflows/service-workflow.yml@main
     secrets:
       USERNAME: ${{ secrets.USERNAME }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
