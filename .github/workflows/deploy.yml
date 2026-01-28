@@ -6,7 +6,8 @@ on:
 
 jobs:
   call-reusable-deploy:
-    uses: GustavoAca/core/.github/workflows/reusable-service-deploy.yml@main
+    uses: GustavoAca/infra-aws-free-tier/.github/workflows/service-deploy.yml@main
+
     with:
       image_name: notification
     secrets:
