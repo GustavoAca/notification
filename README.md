@@ -17,7 +17,7 @@ meio de uma chave de API.
 * **PostgreSQL**
 * **Flyway**
 * **Eureka**
-* **Docker**
+* **Docker** 
 
 ## Endpoints da API
 
