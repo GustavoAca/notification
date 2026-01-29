@@ -9,7 +9,7 @@ jobs:
     uses: GustavoAca/infra-aws-free-tier/.github/workflows/service-deploy.yml@main
 
     with:
-      image_name: notification
+      image_name: notification-service
     secrets: inherit
 
   build:
