@@ -16,13 +16,9 @@ jobs:
       image_name: notification-service
     secrets: inherit
 
-  deploy-to-ec2:
-    needs: push-to-ecr
-    uses: GustavoAca/infra-aws-free-tier/.github/workflows/ec2-deploy.yml@main
-    with:
-      ec2_ip: ${{ secrets.EC2_IP }}
-      ssh_key: ${{ secrets.EC2_PRIVATE_KEY }}
-      docker_compose_path: ~/apps/docker-compose.yml
+  push-to-ec2:
+    needs: build
+    uses: GustavoAca/infra-aws-free-tier/.github/workflows/ecs-deploy.yml@main
     secrets: inherit
 
   increment-version:
