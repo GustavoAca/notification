@@ -17,12 +17,12 @@ jobs:
     secrets: inherit
 
   push-to-ec2:
-    needs: build
+    needs: push-to-ecr
     uses: GustavoAca/infra-aws-free-tier/.github/workflows/ecs-deploy.yml@main
     secrets: inherit
 
   increment-version:
-    needs: push-to-ecr
+    needs: push-to-ec2
     uses: GustavoAca/infra-aws-free-tier/.github/workflows/increment-version.yml@main
     secrets: inherit
 
