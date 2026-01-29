@@ -16,6 +16,10 @@ jobs:
       image_name: notification-service
     secrets: inherit
 
+  push-to-ec2:
+    needs: build
+    uses: GustavoAca/infra-aws-free-tier/.github/workflows/ecs-deploy.yml@main
+    secrets: inherit
 
   increment-version:
     needs: push-to-ecr
