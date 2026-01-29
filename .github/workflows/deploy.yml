@@ -19,6 +19,9 @@ jobs:
   push-to-ec2:
     needs: push-to-ecr
     uses: GustavoAca/infra-aws-free-tier/.github/workflows/ecs-deploy.yml@main
+    with:
+      cluster_name: app-cluster
+      service_name: app-serviceapp-service
     secrets: inherit
 
   increment-version:
