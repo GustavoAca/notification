@@ -16,7 +16,7 @@ import java.util.Objects;
 @Component
 public class ApiKeyFilter extends OncePerRequestFilter {
 
-    @Value("#{'${spring.chave-de-acesso}'.split(',')}")
+    @Value("#{'${app.api-keys}'.split(',')}")
     private List<String> validApiKeys;
 
     private static final List<String> publicPaths = List.of(

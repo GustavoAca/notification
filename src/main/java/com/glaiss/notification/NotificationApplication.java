@@ -9,8 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.TimeZone;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.glaiss.core", "com.glaiss.notification"})
-@EntityScan(basePackages = "com.glaiss.notification.domain.model")
+@ComponentScan(basePackages = {"com.glaiss.notification"})
 public class NotificationApplication {
 
 	public static void main(String[] args) {
